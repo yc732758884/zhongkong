@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+
+
+
+
+      <LinearLayout
+          app:layout_constraintTop_toTopOf="parent"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="50dp">
+
+
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:text="锡山区生态环境现状"
+            android:layout_width="0dp"
+            android:textSize="15sp"
+            android:layout_height="match_parent"/>
+         
+         <LinearLayout
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:gravity="center"
+             android:layout_height="match_parent">
+            
+            <Switch
+                android:textOn="开"
+                android:textOff="关"
+                android:showText="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            
+            
+            
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent">
+         </LinearLayout>
+      </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+
+
+
+
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="循环溯源"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent">
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="循环经济战略优势"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+                   
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+
+
+
+
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="灯控总开关"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent">
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="循环经济产业链"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="再生水"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="城镇污水"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="工业污水"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="固废处理"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="50dp">
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+
+
+               <TextView
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:paddingHorizontal="5dp"
+                   android:text="大美锡山"
+                   android:layout_width="0dp"
+                   android:textSize="15sp"
+                   android:layout_height="match_parent"/>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+
+                   <Switch
+                       android:textOn="开"
+                       android:textOff="关"
+                       android:showText="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:gravity="center"
+                   android:layout_height="match_parent">
+                   <Button
+                       android:text="关机"
+                       android:textSize="8sp"
+                       android:background="@color/teal_700"
+                       android:layout_width="50dp"
+                       android:layout_height="30dp"/>
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+           <View
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:background="#ddd"
+               android:layout_width="match_parent"
+               android:layout_height="2px"/>
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+   </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
