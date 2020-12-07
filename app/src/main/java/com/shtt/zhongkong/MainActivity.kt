@@ -191,6 +191,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        //xunhuanzhilu
+
+        sw_plc1.
+
+
+
+
 
 
 

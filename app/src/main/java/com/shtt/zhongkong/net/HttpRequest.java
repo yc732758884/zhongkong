@@ -51,4 +51,9 @@ public interface HttpRequest {
     @GET("radarSwitch/version")
     Observable<BaseResponse<StatusBean>> radarSwitch( @Query("flag") boolean flag,@Header("urlname") String head);
 
+
+    //plc
+
+    @GET("plcState")
+    Observable<BaseResponse<String>> plcState( @Query("isOpen") boolean open,@Query("code") int code,@Header("urlname") String head);
 }

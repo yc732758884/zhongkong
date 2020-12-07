@@ -651,13 +651,6 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
-                       android:id="@+id/sw_dmxs"
-                       android:textOn="开"
-                       android:textOff="关"
-                       android:showText="true"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"/>
 
 
 
@@ -669,7 +662,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
                    <Button
-                       android:id="@+id/btn_dmxs"
+                       android:id="@+id/btn_"
                        android:text="关机"
                        android:textSize="8sp"
                        android:background="@color/teal_700"
