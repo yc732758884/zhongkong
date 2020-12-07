@@ -26,6 +26,8 @@ public class NetBean {
 
     private  String fgcl="http://192.168.1.11:9090/";
 
+
+
     public String getFgcl() {
         return fgcl;
     }
