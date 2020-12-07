@@ -60,36 +60,31 @@ class MainActivity : AppCompatActivity() {
 
         //锡山区生态环境现状
 
-        getStatus(1, sw_xsq,"baseUrl")
-        sw_xsq.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+       getStatus(1, sw_xsq,"baseUrl")
 
-            openOrClose(isChecked, 1, sw_xsq,"baseUrl")
+        sw_xsq.setListener {
 
+            openOrClose(it, 2, sw_xsq,"baseUrl")
         }
+
+
         //循环溯源
 
         getStatus(2, sw_xhsy,"baseUrl")
-        sw_xhsy.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_xhsy.setListener {
 
-            openOrClose(isChecked, 2, sw_xhsy,"baseUrl")
+
+            openOrClose(it, 2, sw_xhsy,"baseUrl")
 
         }
 
 
         //循环经济战略优势
         getStatus(0,sw_xhjj,"xhjj")
-        sw_xhjj.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_xhjj.setListener {
 
-            openOrClose(isChecked,  0,  sw_xhjj,"xhjj")
+
+            openOrClose(it,  0,  sw_xhjj,"xhjj")
         }
         btn_xhjj.setOnClickListener {
             shotdown("xhjj")
@@ -98,22 +93,15 @@ class MainActivity : AppCompatActivity() {
 
         //灯控总开关
         getStatusLight(sw_dk,"baseUrl")
-        sw_dk.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_dk.setListener {
 
-            openOrCloseLight(isChecked,  0,sw_dk,"baseUrl")
+            openOrCloseLight(it,  0,sw_dk,"baseUrl")
         }
 
         //循环经济产业链
         getStatus(0,sw_xhjjcyl,"xhjjcyl")
-        sw_xhjjcyl.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
-
-            openOrClose(isChecked,0,  sw_xhjjcyl,"xhjjcyl")
+        sw_xhjjcyl.setListener {
+            openOrClose(it,0,  sw_xhjjcyl,"xhjjcyl")
         }
         sw_xhjjcyl.setOnClickListener {
             shotdown("xhjjcyl")
@@ -123,12 +111,9 @@ class MainActivity : AppCompatActivity() {
         //再生水
 
         getStatus(0,sw_zss,"zss")
-        sw_zss.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_zss.setListener {
 
-            openOrClose(isChecked,0,  sw_zss,"zss")
+            openOrClose(it,0,  sw_zss,"zss")
         }
         sw_zss.setOnClickListener {
             shotdown("zss")
@@ -137,12 +122,9 @@ class MainActivity : AppCompatActivity() {
 
         //城镇污水
         getStatus(0,sw_czws,"czws")
-        sw_czws.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_czws.setListener {
 
-            openOrClose(isChecked,0,  sw_zss,"czws")
+            openOrClose(it,0,  sw_zss,"czws")
         }
         sw_czws.setOnClickListener {
             shotdown("czws")
@@ -151,12 +133,9 @@ class MainActivity : AppCompatActivity() {
         //工业污水
 
         getStatus(0,sw_gyws,"gyws")
-        sw_gyws.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_gyws.setListener {
 
-            openOrClose(isChecked,0,  sw_gyws,"gyws")
+            openOrClose(it,0,  sw_gyws,"gyws")
         }
         sw_gyws.setOnClickListener {
             shotdown("gyws")
@@ -166,12 +145,9 @@ class MainActivity : AppCompatActivity() {
         //feiguchuli
 
         getVersion("fgcl",sw_fgcl,)
-        sw_fgcl.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_fgcl.setListener {
 
-            setVersion(isChecked,  sw_fgcl,"fgcl")
+            setVersion(it,  sw_fgcl,"fgcl")
         }
         sw_fgcl.setOnClickListener {
             shotdown("fgcl")
@@ -179,12 +155,9 @@ class MainActivity : AppCompatActivity() {
 
         //dameixisan
         getStatus(1, sw_dmxs,"baseUrl")
-        sw_dmxs.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!buttonView.isPressed) {
-                return@setOnCheckedChangeListener
-            }
+        sw_dmxs.setListener {
 
-            openOrClose(isChecked, 1, sw_dmxs,"baseUrl")
+            openOrClose(it, 1, sw_dmxs,"baseUrl")
 
         }
 
@@ -193,11 +166,15 @@ class MainActivity : AppCompatActivity() {
 
         //xunhuanzhilu
 
-        sw_plc1.
 
 
 
+           //PLC开关控制
 
+        sw_plc1.setListener {
+
+
+        }
 
 
 
@@ -208,40 +185,41 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun openOrClose(boolean: Boolean, code: Int, view: Switch?,head: String) {
-        view?.isClickable = false
+
+
+
+    fun openOrClose(boolean: Boolean, code: Int, view: MySwitch?,head: String) {
+
         NetWorkManager.getRequest().CloseOrOpen(boolean, code,head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .compose(ResponseTransformer.handleResult())
             .subscribe({
-
+                    view?.setOpen(boolean)
             }, {
-
-                var e = it as ApiException
+                it as ApiException
                 Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
-                view?.isChecked = !boolean
-                view?.isClickable = true
+
 
 
             }, {
-                view?.isClickable = true
+
             }).also { }
     }
 
-    fun getStatus(code: Int, view: Switch?,head: String) {
+
+
+    fun getStatus(code: Int, view: MySwitch?,head: String) {
         NetWorkManager.getRequest().getStatus(code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .compose(ResponseTransformer.handleResult())
             .subscribe({
-                view?.isChecked = it.isStatus
+                view?.open = it.isStatus
             }, {
                 var e = it as ApiException
                 Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
             }).also { }
 
     }
-
-
 
 
 
@@ -258,32 +236,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun openOrCloseLight(boolean: Boolean, code: Int, view: Switch?,head: String) {
+    fun openOrCloseLight(boolean: Boolean, code: Int, view: MySwitch?,head: String) {
         view?.isClickable = false
         NetWorkManager.getRequest().lightControl(boolean,head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .compose(ResponseTransformer.handleResult())
             .subscribe({
-
+                     view?.setOpen(boolean)
             }, {
 
                 var e = it as ApiException
                 Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
-                view?.isChecked = !boolean
-                view?.isClickable = true
-
 
             }, {
-                view?.isClickable = true
             }).also { }
     }
 
-    fun getStatusLight( view: Switch?,head: String) {
+    fun getStatusLight( view: MySwitch?,head: String) {
         NetWorkManager.getRequest().getLightStatus( head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .compose(ResponseTransformer.handleResult())
             .subscribe({
-                view?.isChecked = it.isStatus
+                view?.setOpen(it.isStatus)
             }, {
                 var e = it as ApiException
                 Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
@@ -292,32 +266,42 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-      fun getVersion(head: String,view: Switch?){
+      fun getVersion(head: String,view: MySwitch?){
           NetWorkManager.getRequest().getCurrentVersion( head)
               .compose(SchedulerProvider.getInstance().applySchedulers())
               .compose(ResponseTransformer.handleResult())
               .subscribe({
-                  view?.isChecked = it.isStatus
+                  view?.setOpen(it.isStatus)
               }, {
                   var e = it as ApiException
                   Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
               }).also { }
       }
 
-    fun setVersion(boolean: Boolean, view: Switch?,head: String) {
+    fun setVersion(boolean: Boolean, view: MySwitch?,head: String) {
         NetWorkManager.getRequest().radarSwitch(boolean, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .compose(ResponseTransformer.handleResult())
             .subscribe({
-                view?.isChecked = it.isStatus
+                view?.setOpen(it.isStatus)
             }, {
 
                 var e = it as ApiException
                 Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
-                view?.isChecked = !boolean
-                view?.isClickable = true
+
             }).also { }
 
+    }
+
+    fun  setPlcStatus(open:Boolean,code:Int,head:String){
+        NetWorkManager.getRequest().plcState(open, code, head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .compose(ResponseTransformer.handleResult())
+            .subscribe({
+
+            },{
+
+            })
     }
 
 

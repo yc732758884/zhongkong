@@ -6,6 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
    <LinearLayout
        android:id="@+id/ll"
        android:orientation="vertical"
@@ -40,18 +46,17 @@
              android:gravity="center"
              android:layout_height="match_parent">
             
-            <Switch
+            <com.shtt.zhongkong.MySwitch
+
                 android:id="@+id/sw_xsq"
-                android:textOn="开"
-                android:textOff="关"
-                android:showText="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
+                android:layout_width="60dp"
+                android:layout_height="30dp"/>
 
 
-            
-            
-            
+
+
+
          </LinearLayout>
 
          <LinearLayout
@@ -99,13 +104,11 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_xhsy"
-                       android:textOn="开"
-                       android:textOff="关"
-                       android:showText="true"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"/>
+
+                       android:layout_width="60dp"
+                       android:layout_height="30dp"/>
 
 
 
@@ -152,13 +155,11 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_xhjj"
-                       android:textOn="开"
-                       android:textOff="关"
-                       android:showText="true"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"/>
+
+                       android:layout_width="60dp"
+                       android:layout_height="30dp"/>
 
 
 
@@ -177,7 +178,7 @@
                        android:layout_width="50dp"
                        android:layout_height="30dp"/>
 
-                   
+
                </LinearLayout>
            </LinearLayout>
 
@@ -220,13 +221,11 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_dk"
-                       android:textOn="开"
-                       android:textOff="关"
-                       android:showText="true"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"/>
+
+                       android:layout_width="60dp"
+                       android:layout_height="30dp"/>
 
 
 
@@ -273,7 +272,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_xhjjcyl"
                        android:textOn="开"
                        android:textOff="关"
@@ -337,7 +336,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_zss"
                        android:textOn="开"
                        android:textOff="关"
@@ -400,7 +399,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_czws"
                        android:textOn="开"
                        android:textOff="关"
@@ -463,7 +462,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_gyws"
                        android:textOn="开"
                        android:textOff="关"
@@ -526,7 +525,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_fgcl"
                        android:textOn="开"
                        android:textOff="关"
@@ -588,7 +587,7 @@
                    android:gravity="center"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_dmxs"
                        android:textOn="开"
                        android:textOff="关"
@@ -710,15 +709,16 @@
                    android:orientation="vertical"
                    android:layout_height="match_parent">
 
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_plc1"
                        android:text="端口1"
                        android:textOn="开"
                        android:textOff="关"
                        android:showText="true"
                        android:layout_width="wrap_content"
+
                        android:layout_height="wrap_content"/>
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_plc2"
                        android:textOn="开"
                        android:textOff="关"
@@ -726,7 +726,7 @@
                        android:showText="true"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"/>
-                   <Switch
+                   <com.shtt.zhongkong.MySwitch
                        android:id="@+id/sw_plc3"
                        android:textOn="开"
                        android:text="端口3"
@@ -765,5 +765,7 @@
 
    </LinearLayout>
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

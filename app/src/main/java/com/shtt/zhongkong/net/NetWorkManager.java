@@ -58,11 +58,8 @@ public class NetWorkManager {
 
 
         OkHttpClient client = new OkHttpClient.Builder()
-
                 .addInterceptor(new BaseUrlInterceptor())
                 .addInterceptor(loggingInterceptor)
-
-
                 .build();
 
 
@@ -128,7 +125,7 @@ public class NetWorkManager {
                         newBaseUrl = HttpUrl.parse(nb.getGyws());
                         break;
 
-                    case "fgc;":
+                    case "fgcl;":
                         newBaseUrl = HttpUrl.parse(nb.getFgcl());
                         break;
 
@@ -143,10 +140,10 @@ public class NetWorkManager {
 
                 HttpUrl newFullUrl = oldHttpUrl
                         .newBuilder()
-                        .scheme("https")//更换网络协议
-                        .host(newBaseUrl.host())//更换主机名
-                        .port(newBaseUrl.port())//更换端口
-                        .removePathSegment(0)//移除第一个参数
+                        .scheme("https")
+                        .host(newBaseUrl.host())
+                        .port(newBaseUrl.port())
+                        .removePathSegment(0)
                         .build();
 
                 return chain.proceed(builder.url(newFullUrl).build());

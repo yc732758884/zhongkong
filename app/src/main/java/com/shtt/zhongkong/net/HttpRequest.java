@@ -56,4 +56,11 @@ public interface HttpRequest {
 
     @GET("plcState")
     Observable<BaseResponse<String>> plcState( @Query("isOpen") boolean open,@Query("code") int code,@Header("urlname") String head);
+
+
+  @GET("getPlcState")
+  Observable<BaseResponse<String>> getplcState(@Query("code") int code,@Header("urlname") String head);
+
+
+
 }
