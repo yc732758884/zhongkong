@@ -1,6 +1,10 @@
 package com.shtt.zhongkong
 
 import android.Manifest
+import android.app.AlertDialog
+import android.app.ProgressDialog
+import android.content.DialogInterface
+import android.nfc.tech.NfcV
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -22,6 +26,8 @@ import java.io.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var dialog:ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         myRequetPermission()
 
         initView()
+
+      dialog=ProgressDialog(this)
+        dialog.setMessage("正在请求")
 
 
     }
@@ -51,6 +60,14 @@ class MainActivity : AppCompatActivity() {
             var json = Gson().fromJson<NetBean>(s, NetBean::class.java)
             var nb = NetBean.getIntanse();
             nb.baseUrl = json.baseUrl
+            nb.czws=json.czws
+            nb.fgcl=json.fgcl
+            nb.zss=json.zss
+            nb.gyws=json.gyws
+            nb.xhjj=json.xhjj
+            nb.xhjjcyl=json.xhjjcyl
+            nb.xhzl=json.xhzl
+
 
         }
 
@@ -60,17 +77,23 @@ class MainActivity : AppCompatActivity() {
 
         //锡山区生态环境现状
 
-       getStatus(1, sw_xsq,"baseUrl")
+         getStatus(1, sw_xsq,"baseUrl")
+        sw_xsq.setOpenText("播放")
+        sw_xsq.setColseText("停止")
 
         sw_xsq.setListener {
 
-            openOrClose(it, 2, sw_xsq,"baseUrl")
+            openOrClose(it, 1, sw_xsq,"baseUrl")
         }
+
+
 
 
         //循环溯源
 
         getStatus(2, sw_xhsy,"baseUrl")
+        sw_xhsy.setOpenText("播放")
+        sw_xhsy.setColseText("停止")
         sw_xhsy.setListener {
 
 
@@ -103,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         sw_xhjjcyl.setListener {
             openOrClose(it,0,  sw_xhjjcyl,"xhjjcyl")
         }
-        sw_xhjjcyl.setOnClickListener {
+        btn_xhjjcyl.setOnClickListener {
             shotdown("xhjjcyl")
         }
 
@@ -115,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
             openOrClose(it,0,  sw_zss,"zss")
         }
-        sw_zss.setOnClickListener {
+        btn_zss.setOnClickListener {
             shotdown("zss")
         }
 
@@ -123,10 +146,9 @@ class MainActivity : AppCompatActivity() {
         //城镇污水
         getStatus(0,sw_czws,"czws")
         sw_czws.setListener {
-
-            openOrClose(it,0,  sw_zss,"czws")
+            openOrClose(it,0,  sw_czws,"czws")
         }
-        sw_czws.setOnClickListener {
+        btn_czws.setOnClickListener {
             shotdown("czws")
         }
 
@@ -137,7 +159,7 @@ class MainActivity : AppCompatActivity() {
 
             openOrClose(it,0,  sw_gyws,"gyws")
         }
-        sw_gyws.setOnClickListener {
+        btn_gyws.setOnClickListener {
             shotdown("gyws")
         }
 
@@ -147,17 +169,22 @@ class MainActivity : AppCompatActivity() {
         getVersion("fgcl",sw_fgcl,)
         sw_fgcl.setListener {
 
-            setVersion(it,  sw_fgcl,"fgcl")
+            setVersion(it, sw_fgcl,"fgcl")
         }
-        sw_fgcl.setOnClickListener {
+        btn_fgcl.setOnClickListener {
             shotdown("fgcl")
         }
 
         //dameixisan
-        getStatus(1, sw_dmxs,"baseUrl")
+
+
+        getStatus(3, sw_dmxs,"baseUrl")
+
+        sw_dmxs.setOpenText("播放")
+        sw_dmxs.setColseText("停止")
         sw_dmxs.setListener {
 
-            openOrClose(it, 1, sw_dmxs,"baseUrl")
+            openOrClose(it, 3, sw_dmxs,"baseUrl")
 
         }
 
@@ -166,12 +193,73 @@ class MainActivity : AppCompatActivity() {
 
         //xunhuanzhilu
 
+        getCurrentVideo()
+
+         sw_xc1.setListener {
+             selectVideo(1,"xhzl")
+
+        }
+        sw_xc2.setListener {
+            selectVideo(2,"xhzl")
+
+
+        }
+        sw_xc3.setListener {
+            selectVideo(3,"xhzl")
+
+        }
+         btn_xhzl.setOnClickListener {
+             shotdown("xhzl")
+         }
+        btn_stop.setOnClickListener {
+            reset("xhzl")
+        }
+
+
+
+
+
+
+
 
 
 
            //PLC开关控制
 
+
+        getPlcStatus(1,"baseUrl",sw_plc1)
+        getPlcStatus(2,"baseUrl",sw_plc2)
+        getPlcStatus(3,"baseUrl",sw_plc3)
         sw_plc1.setListener {
+
+            setPlcStatus(it,1,"baseUrl",sw_plc1)
+
+        }
+
+        sw_plc2.setListener {
+
+            setPlcStatus(it,2,"baseUrl",sw_plc2)
+        }
+
+        sw_plc3.setListener {
+
+            setPlcStatus(it,3,"baseUrl",sw_plc3)
+
+
+        }
+
+
+        btn_all.setOnClickListener {
+
+            var  dialog=AlertDialog.Builder(this)
+            dialog.setMessage("确定全部关机？")
+                .setPositiveButton("确定"){ dialogInterface: DialogInterface, i: Int ->
+
+                    shotDownAll("baseUrl")
+
+                }
+                .setNegativeButton("取消"){ dialogInterface: DialogInterface, i: Int ->dialogInterface.dismiss() }
+                .show()
 
 
         }
@@ -182,22 +270,52 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+    }
+
+
+
+    fun  shotDownAll(head: String){
+
+        NetWorkManager.getRequest().shutdownAll(head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .subscribe({
+
+                 Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+            }, {
+
+
+
+
+
+
+            }, {
+
+            }).also { }
+
+    }
+
+    fun  getCurrentVideo(){
+        iscurrentView(1,"xhzl",sw_xc1)
+        iscurrentView(2,"xhzl",sw_xc2)
+        iscurrentView(3,"xhzl",sw_xc3)
     }
 
 
 
 
 
-    fun openOrClose(boolean: Boolean, code: Int, view: MySwitch?,head: String) {
+    fun openOrClose(boolean: Boolean, code: Int, view: MySwitch,head: String) {
 
         NetWorkManager.getRequest().CloseOrOpen(boolean, code,head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
             .subscribe({
-                    view?.setOpen(boolean)
+
+                  view.setOpen(boolean)
             }, {
-                it as ApiException
-                Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
+
+
+
 
 
 
@@ -206,17 +324,34 @@ class MainActivity : AppCompatActivity() {
             }).also { }
     }
 
+    fun selectVideo( code: Int,head: String) {
+
+        NetWorkManager.getRequest().CloseOrOpen(false, code,head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .subscribe({
+                Toast.makeText(this,it.message , Toast.LENGTH_SHORT).show()
+                getCurrentVideo()
+            }, {
+
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+
+            }, {
+
+            }).also { }
+    }
+
+
 
 
     fun getStatus(code: Int, view: MySwitch?,head: String) {
         NetWorkManager.getRequest().getStatus(code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
+
             .subscribe({
-                view?.open = it.isStatus
+                view?.setOpen(it.data.isStatus)
             }, {
-                var e = it as ApiException
-                Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }).also { }
 
     }
@@ -240,13 +375,13 @@ class MainActivity : AppCompatActivity() {
         view?.isClickable = false
         NetWorkManager.getRequest().lightControl(boolean,head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
+
             .subscribe({
                      view?.setOpen(boolean)
             }, {
 
-                var e = it as ApiException
-                Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
 
             }, {
             }).also { }
@@ -255,12 +390,12 @@ class MainActivity : AppCompatActivity() {
     fun getStatusLight( view: MySwitch?,head: String) {
         NetWorkManager.getRequest().getLightStatus( head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
+
             .subscribe({
-                view?.setOpen(it.isStatus)
+                view?.setOpen(it.data.isStatus)
             }, {
-                var e = it as ApiException
-                Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }).also { }
 
     }
@@ -269,39 +404,97 @@ class MainActivity : AppCompatActivity() {
       fun getVersion(head: String,view: MySwitch?){
           NetWorkManager.getRequest().getCurrentVersion( head)
               .compose(SchedulerProvider.getInstance().applySchedulers())
-              .compose(ResponseTransformer.handleResult())
+
               .subscribe({
-                  view?.setOpen(it.isStatus)
+                  view?.setOpen(it.data.isStatus)
               }, {
-                  var e = it as ApiException
-                  Toast.makeText(this, e.displayMessage, Toast.LENGTH_SHORT).show()
+
+                  Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
               }).also { }
       }
 
     fun setVersion(boolean: Boolean, view: MySwitch?,head: String) {
         NetWorkManager.getRequest().radarSwitch(boolean, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
             .subscribe({
-                view?.setOpen(it.isStatus)
+                if (it.code==0){
+                    view?.setOpen(boolean)
+                }
+
             }, {
 
-                var e = it as ApiException
-                Toast.makeText(this, it.displayMessage, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
 
             }).also { }
 
     }
 
-    fun  setPlcStatus(open:Boolean,code:Int,head:String){
+    fun  setPlcStatus(open:Boolean,code:Int,head:String,view:MySwitch){
         NetWorkManager.getRequest().plcState(open, code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
-            .compose(ResponseTransformer.handleResult())
+
             .subscribe({
+                if (it.success){
+                    view.setOpen(open)
+                }
 
             },{
 
-            })
+            }).also {  }
+    }
+
+
+    fun  getPlcStatus(code:Int,head:String,view:MySwitch){
+
+        NetWorkManager.getRequest().getplcState( code, head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+
+            .subscribe({
+               view.setOpen(it.data.isStatus)
+
+            },{
+
+            }).also {  }
+
+    }
+
+
+    fun  iscurrentView(code: Int,head: String,view: MySwitch){
+        NetWorkManager.getRequest().isCurrentVideo( code, head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+
+            .subscribe({
+                view.setOpen(it.data.isStatus)
+
+            },{
+
+            }).also {  }
+    }
+
+
+    fun  reset(head: String){
+        NetWorkManager.getRequest().reset(  head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+
+            .subscribe({
+                Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                getCurrentVideo()
+            },{
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also {  }
+    }
+
+    fun  showProgressDialog(){
+
+        dialog.show()
+    }
+
+    fun  dissDialog(){
+        if (dialog.isShowing){
+            dialog.dismiss()
+        }
+
     }
 
 

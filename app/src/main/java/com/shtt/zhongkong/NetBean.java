@@ -18,15 +18,19 @@ public class NetBean {
     private  String baseUrl="http://192.168.1.12:9090/";
     private  String xhjj="http://192.168.1.3:9090/";
     private  String xhjjcyl="http://192.168.1.4:9090/";
-
     private  String zss="http://192.168.1.7:9091/";
-
     private  String czws="http://192.168.1.9:9092/";
     private  String gyws="http://192.168.1.10:9093/";
-
     private  String fgcl="http://192.168.1.11:9090/";
+    private  String xhzl="http://192.168.1.8:9090/";
 
+    public String getXhzl() {
+        return xhzl;
+    }
 
+    public void setXhzl(String xhzl) {
+        this.xhzl = xhzl;
+    }
 
     public String getFgcl() {
         return fgcl;

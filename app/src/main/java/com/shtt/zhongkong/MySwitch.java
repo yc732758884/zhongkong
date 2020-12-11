@@ -2,6 +2,7 @@ package com.shtt.zhongkong;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MySwitch  extends LinearLayout {
 
-    boolean open =true;
+    boolean open =true ;
     Context context;
 
     View view_open,View_close;
@@ -24,15 +25,16 @@ public class MySwitch  extends LinearLayout {
     public MySwitch(@NonNull Context context) {
 //        super(context);
         this(context, null);
-        this.context=context;
+
 //        initView();
 
     }
 
     public MySwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
 //        super(context, attrs);
+
         this(context, attrs, 0);
-        this.context=context;
+
    //     initView();
 
     }
@@ -40,19 +42,26 @@ public class MySwitch  extends LinearLayout {
     public MySwitch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context=context;
+        this.open=true;
         initView();
 
     }
 
     void  initView(){
-        View.inflate(context,R.layout.layout_switch,this);
-      //  LayoutInflater.from(context).inflate(R.layout.layout_switch,this,false);
 
-        findViewById(R.id.cl).setOnClickListener(v -> {
-            if (listener!=null){
-                listener.click(!open);
+        View.inflate(context,R.layout.layout_switch,this);
+        findViewById(R.id.cl).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (listener!=null) {
+                    listener.click(!open);
+                }
             }
         });
+
+
 
         view_open=findViewById(R.id.view_open);
         View_close=findViewById(R.id.view_close);
@@ -67,6 +76,8 @@ public class MySwitch  extends LinearLayout {
 
     public   void setOpen(boolean bol ){
 
+        this.open=bol;
+
         if (bol){
             view_open.setVisibility(View.VISIBLE);
             View_close.setVisibility(View.GONE);
@@ -80,8 +91,7 @@ public class MySwitch  extends LinearLayout {
             tv_close.setVisibility(View.VISIBLE);
         }
 
-        invalidate();
-
+      postInvalidate();
     }
 
 
@@ -98,4 +108,13 @@ public class MySwitch  extends LinearLayout {
      public  interface MySwitchListener{
          void click(boolean open);
     }
+
+    public  void  setOpenText(String str){
+        tv_open.setText(str);
+    }
+
+    public  void  setColseText(String str){
+        tv_close.setText(str);
+    }
+
 }

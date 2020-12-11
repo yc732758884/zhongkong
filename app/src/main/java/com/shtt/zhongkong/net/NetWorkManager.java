@@ -96,6 +96,7 @@ public class NetWorkManager {
 
                 builder.removeHeader("urlname");
                 String headerValue = headerValues.get(0);
+                Log.e("ssssssss",headerValue);
 
                 HttpUrl newBaseUrl = null;
 
@@ -125,11 +126,13 @@ public class NetWorkManager {
                         newBaseUrl = HttpUrl.parse(nb.getGyws());
                         break;
 
-                    case "fgcl;":
+                    case "fgcl":
                         newBaseUrl = HttpUrl.parse(nb.getFgcl());
                         break;
 
-
+                    case "xhzl":
+                        newBaseUrl = HttpUrl.parse(nb.getXhzl());
+                        break;
 
                     default:
 
@@ -140,10 +143,10 @@ public class NetWorkManager {
 
                 HttpUrl newFullUrl = oldHttpUrl
                         .newBuilder()
-                        .scheme("https")
+                        .scheme("http")
                         .host(newBaseUrl.host())
                         .port(newBaseUrl.port())
-                        .removePathSegment(0)
+
                         .build();
 
                 return chain.proceed(builder.url(newFullUrl).build());

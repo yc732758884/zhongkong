@@ -59,8 +59,16 @@ public interface HttpRequest {
 
 
   @GET("getPlcState")
-  Observable<BaseResponse<String>> getplcState(@Query("code") int code,@Header("urlname") String head);
+  Observable<BaseResponse<StatusBean>> getplcState(@Query("code") int code,@Header("urlname") String head);
 
 
+    @GET("isCurrentVideo")
+    Observable<BaseResponse<StatusBean>> isCurrentVideo(@Query("code") int code,@Header("urlname") String head);
 
+    @GET("reset")
+    Observable<BaseResponse> reset(@Header("urlname") String head);
+
+
+    @GET("shutdownAll")
+    Observable<BaseResponse<String>> shutdownAll( @Header("urlname") String head);
 }
