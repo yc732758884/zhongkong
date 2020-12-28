@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="@id/view_close"
         app:layout_constraintEnd_toEndOf="@id/view_close"
         app:layout_constraintBottom_toBottomOf="@id/view_close"
-        android:text="关"
+        android:text="无声"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="@id/view_open"
         app:layout_constraintEnd_toEndOf="@id/view_open"
         app:layout_constraintBottom_toBottomOf="@id/view_open"
-        android:text="开"
+        android:text="有声"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

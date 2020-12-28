@@ -71,4 +71,15 @@ public interface HttpRequest {
 
     @GET("shutdownAll")
     Observable<BaseResponse<String>> shutdownAll( @Header("urlname") String head);
+
+
+    //家园手势控制状态切换
+    @GET("waveHandSwitch/changeControlStatus")
+    Observable<BaseResponse<String>> changeControlStatus( @Header("urlname") String head,@Query("isControl") boolean control);
+
+
+    //
+    @GET(" waveHandSwitch/getControlStatus")
+    Observable<BaseResponse<StatusBean>> getControlStatus( @Header("urlname") String head);
+
 }

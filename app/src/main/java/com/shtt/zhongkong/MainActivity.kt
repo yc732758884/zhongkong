@@ -26,7 +26,7 @@ import java.io.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var dialog:ProgressDialog
+    lateinit var dialog: ProgressDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
-      dialog=ProgressDialog(this)
+        dialog = ProgressDialog(this)
         dialog.setMessage("正在请求")
 
 
@@ -60,13 +60,13 @@ class MainActivity : AppCompatActivity() {
             var json = Gson().fromJson<NetBean>(s, NetBean::class.java)
             var nb = NetBean.getIntanse();
             nb.baseUrl = json.baseUrl
-            nb.czws=json.czws
-            nb.fgcl=json.fgcl
-            nb.zss=json.zss
-            nb.gyws=json.gyws
-            nb.xhjj=json.xhjj
-            nb.xhjjcyl=json.xhjjcyl
-            nb.xhzl=json.xhzl
+            nb.czws = json.czws
+            nb.fgcl = json.fgcl
+            nb.zss = json.zss
+            nb.gyws = json.gyws
+            nb.xhjj = json.xhjj
+            nb.xhjjcyl = json.xhjjcyl
+            nb.xhzl = json.xhzl
 
 
         }
@@ -75,39 +75,45 @@ class MainActivity : AppCompatActivity() {
 
     fun initView() {
 
-        //锡山区生态环境现状
 
-         getStatus(1, sw_xsq,"baseUrl")
-        sw_xsq.setOpenText("播放")
-        sw_xsq.setColseText("停止")
+        getControlChange("baseUrl")
+        sw_home.setColseText("锁定")
+        sw_home.setOpenText("解锁")
+        sw_home.setListener {
 
-        sw_xsq.setListener {
-
-            openOrClose(it, 1, sw_xsq,"baseUrl")
+            changeControlchange("baseUrl", it)
         }
 
 
+        //锡山区生态环境现状
+
+        getStatus(1, sw_xsq, "baseUrl")
+
+
+        sw_xsq.setListener {
+
+            openOrClose(it, 1, sw_xsq, "baseUrl")
+        }
 
 
         //循环溯源
 
-        getStatus(2, sw_xhsy,"baseUrl")
-        sw_xhsy.setOpenText("播放")
-        sw_xhsy.setColseText("停止")
+        getStatus(2, sw_xhsy, "baseUrl")
+
         sw_xhsy.setListener {
 
 
-            openOrClose(it, 2, sw_xhsy,"baseUrl")
+            openOrClose(it, 2, sw_xhsy, "baseUrl")
 
         }
 
 
         //循环经济战略优势
-        getStatus(0,sw_xhjj,"xhjj")
+        getStatus(0, sw_xhjj, "xhjj")
         sw_xhjj.setListener {
 
 
-            openOrClose(it,  0,  sw_xhjj,"xhjj")
+            openOrClose(it, 0, sw_xhjj, "xhjj")
         }
         btn_xhjj.setOnClickListener {
             shotdown("xhjj")
@@ -115,16 +121,19 @@ class MainActivity : AppCompatActivity() {
 
 
         //灯控总开关
-        getStatusLight(sw_dk,"baseUrl")
+        getStatusLight(sw_dk, "baseUrl")
+        sw_dk.setColseText("关")
+        sw_dk.setOpenText("开")
+
         sw_dk.setListener {
 
-            openOrCloseLight(it,  0,sw_dk,"baseUrl")
+            openOrCloseLight(it, 0, sw_dk, "baseUrl")
         }
 
         //循环经济产业链
-        getStatus(0,sw_xhjjcyl,"xhjjcyl")
+        getStatus(0, sw_xhjjcyl, "xhjjcyl")
         sw_xhjjcyl.setListener {
-            openOrClose(it,0,  sw_xhjjcyl,"xhjjcyl")
+            openOrClose(it, 0, sw_xhjjcyl, "xhjjcyl")
         }
         btn_xhjjcyl.setOnClickListener {
             shotdown("xhjjcyl")
@@ -133,10 +142,10 @@ class MainActivity : AppCompatActivity() {
 
         //再生水
 
-        getStatus(0,sw_zss,"zss")
+        getStatus(0, sw_zss, "zss")
         sw_zss.setListener {
 
-            openOrClose(it,0,  sw_zss,"zss")
+            openOrClose(it, 0, sw_zss, "zss")
         }
         btn_zss.setOnClickListener {
             shotdown("zss")
@@ -144,9 +153,9 @@ class MainActivity : AppCompatActivity() {
 
 
         //城镇污水
-        getStatus(0,sw_czws,"czws")
+        getStatus(0, sw_czws, "czws")
         sw_czws.setListener {
-            openOrClose(it,0,  sw_czws,"czws")
+            openOrClose(it, 0, sw_czws, "czws")
         }
         btn_czws.setOnClickListener {
             shotdown("czws")
@@ -154,10 +163,10 @@ class MainActivity : AppCompatActivity() {
 
         //工业污水
 
-        getStatus(0,sw_gyws,"gyws")
+        getStatus(0, sw_gyws, "gyws")
         sw_gyws.setListener {
 
-            openOrClose(it,0,  sw_gyws,"gyws")
+            openOrClose(it, 0, sw_gyws, "gyws")
         }
         btn_gyws.setOnClickListener {
             shotdown("gyws")
@@ -166,10 +175,13 @@ class MainActivity : AppCompatActivity() {
 
         //feiguchuli
 
-        getVersion("fgcl",sw_fgcl,)
+        getVersion("fgcl", sw_fgcl,)
+
+        sw_fgcl.setOpenText("A")
+        sw_fgcl.setColseText("B")
         sw_fgcl.setListener {
 
-            setVersion(it, sw_fgcl,"fgcl")
+            setVersion(it, sw_fgcl, "fgcl")
         }
         btn_fgcl.setOnClickListener {
             shotdown("fgcl")
@@ -178,72 +190,61 @@ class MainActivity : AppCompatActivity() {
         //dameixisan
 
 
-        getStatus(3, sw_dmxs,"baseUrl")
+        getStatus(3, sw_dmxs, "baseUrl")
 
-        sw_dmxs.setOpenText("播放")
-        sw_dmxs.setColseText("停止")
+
         sw_dmxs.setListener {
 
-            openOrClose(it, 3, sw_dmxs,"baseUrl")
+            openOrClose(it, 3, sw_dmxs, "baseUrl")
 
         }
-
-
 
 
         //xunhuanzhilu
 
         getCurrentVideo()
 
-         sw_xc1.setListener {
-             selectVideo(1,"xhzl")
+        sw_xc1.setListener {
+            selectVideo(1, "xhzl")
 
         }
         sw_xc2.setListener {
-            selectVideo(2,"xhzl")
+            selectVideo(2, "xhzl")
 
 
         }
         sw_xc3.setListener {
-            selectVideo(3,"xhzl")
+            selectVideo(3, "xhzl")
 
         }
-         btn_xhzl.setOnClickListener {
-             shotdown("xhzl")
-         }
+        btn_xhzl.setOnClickListener {
+            shotdown("xhzl")
+        }
         btn_stop.setOnClickListener {
             reset("xhzl")
         }
 
 
+        //PLC开关控制
 
 
-
-
-
-
-
-
-           //PLC开关控制
-
-
-        getPlcStatus(1,"baseUrl",sw_plc1)
-        getPlcStatus(2,"baseUrl",sw_plc2)
-        getPlcStatus(3,"baseUrl",sw_plc3)
+        getPlcStatus(1, "baseUrl", sw_plc1)
+        getPlcStatus(2, "baseUrl", sw_plc2)
+        getPlcStatus(3, "baseUrl", sw_plc3)
         sw_plc1.setListener {
 
-            setPlcStatus(it,1,"baseUrl",sw_plc1)
+            setPlcStatus(it, 1, "baseUrl", sw_plc1)
 
         }
 
         sw_plc2.setListener {
 
-            setPlcStatus(it,2,"baseUrl",sw_plc2)
+            setPlcStatus(it, 2, "baseUrl", sw_plc2)
         }
 
         sw_plc3.setListener {
 
-            setPlcStatus(it,3,"baseUrl",sw_plc3)
+            setPlcStatus(it, 3, "baseUrl", sw_plc3)
 
 
         }
@@ -251,42 +252,31 @@ class MainActivity : AppCompatActivity() {
 
         btn_all.setOnClickListener {
 
-            var  dialog=AlertDialog.Builder(this)
+            var dialog = AlertDialog.Builder(this)
             dialog.setMessage("确定全部关机？")
-                .setPositiveButton("确定"){ dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton("确定") { dialogInterface: DialogInterface, i: Int ->
 
                     shotDownAll("baseUrl")
 
                 }
-                .setNegativeButton("取消"){ dialogInterface: DialogInterface, i: Int ->dialogInterface.dismiss() }
+                .setNegativeButton("取消") { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
                 .show()
 
 
         }
 
 
-
-
-
-
-
-
     }
 
 
-
-    fun  shotDownAll(head: String){
+    fun shotDownAll(head: String) {
 
         NetWorkManager.getRequest().shutdownAll(head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .subscribe({
 
-                 Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }, {
-
-
-
-
 
 
             }, {
@@ -295,28 +285,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun  getCurrentVideo(){
-        iscurrentView(1,"xhzl",sw_xc1)
-        iscurrentView(2,"xhzl",sw_xc2)
-        iscurrentView(3,"xhzl",sw_xc3)
+    fun getCurrentVideo() {
+        iscurrentView(1, "xhzl", sw_xc1)
+        iscurrentView(2, "xhzl", sw_xc2)
+        iscurrentView(3, "xhzl", sw_xc3)
     }
 
 
+    fun openOrClose(boolean: Boolean, code: Int, view: MySwitch, head: String) {
 
-
-
-    fun openOrClose(boolean: Boolean, code: Int, view: MySwitch,head: String) {
-
-        NetWorkManager.getRequest().CloseOrOpen(boolean, code,head)
+        NetWorkManager.getRequest().CloseOrOpen(boolean, code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .subscribe({
 
-                  view.setOpen(boolean)
+                view.setOpen(boolean)
             }, {
-
-
-
-
 
 
             }, {
@@ -324,12 +307,12 @@ class MainActivity : AppCompatActivity() {
             }).also { }
     }
 
-    fun selectVideo( code: Int,head: String) {
+    fun selectVideo(code: Int, head: String) {
 
-        NetWorkManager.getRequest().CloseOrOpen(false, code,head)
+        NetWorkManager.getRequest().CloseOrOpen(false, code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .subscribe({
-                Toast.makeText(this,it.message , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 getCurrentVideo()
             }, {
 
@@ -341,9 +324,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-    fun getStatus(code: Int, view: MySwitch?,head: String) {
+    fun getStatus(code: Int, view: MySwitch?, head: String) {
         NetWorkManager.getRequest().getStatus(code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
@@ -357,8 +338,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    fun   shotdown(head:String){
+    fun shotdown(head: String) {
         NetWorkManager.getRequest().shutdown(head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
@@ -370,14 +350,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    fun openOrCloseLight(boolean: Boolean, code: Int, view: MySwitch?,head: String) {
+    fun openOrCloseLight(boolean: Boolean, code: Int, view: MySwitch?, head: String) {
         view?.isClickable = false
-        NetWorkManager.getRequest().lightControl(boolean,head)
+        NetWorkManager.getRequest().lightControl(boolean, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
             .subscribe({
-                     view?.setOpen(boolean)
+                view?.setOpen(boolean)
             }, {
 
 
@@ -387,8 +366,8 @@ class MainActivity : AppCompatActivity() {
             }).also { }
     }
 
-    fun getStatusLight( view: MySwitch?,head: String) {
-        NetWorkManager.getRequest().getLightStatus( head)
+    fun getStatusLight(view: MySwitch?, head: String) {
+        NetWorkManager.getRequest().getLightStatus(head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
             .subscribe({
@@ -401,23 +380,23 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-      fun getVersion(head: String,view: MySwitch?){
-          NetWorkManager.getRequest().getCurrentVersion( head)
-              .compose(SchedulerProvider.getInstance().applySchedulers())
+    fun getVersion(head: String, view: MySwitch?) {
+        NetWorkManager.getRequest().getCurrentVersion(head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
 
-              .subscribe({
-                  view?.setOpen(it.data.isStatus)
-              }, {
+            .subscribe({
+                view?.setOpen(it.data.isStatus)
+            }, {
 
-                  Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-              }).also { }
-      }
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+    }
 
-    fun setVersion(boolean: Boolean, view: MySwitch?,head: String) {
+    fun setVersion(boolean: Boolean, view: MySwitch?, head: String) {
         NetWorkManager.getRequest().radarSwitch(boolean, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
             .subscribe({
-                if (it.code==0){
+                if (it.code == 0) {
                     view?.setOpen(boolean)
                 }
 
@@ -430,77 +409,96 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun  setPlcStatus(open:Boolean,code:Int,head:String,view:MySwitch){
+    fun setPlcStatus(open: Boolean, code: Int, head: String, view: MySwitch) {
         NetWorkManager.getRequest().plcState(open, code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
             .subscribe({
-                if (it.success){
+                if (it.success) {
                     view.setOpen(open)
                 }
 
-            },{
+            }, {
 
-            }).also {  }
+            }).also { }
     }
 
 
-    fun  getPlcStatus(code:Int,head:String,view:MySwitch){
+    fun getPlcStatus(code: Int, head: String, view: MySwitch) {
 
-        NetWorkManager.getRequest().getplcState( code, head)
-            .compose(SchedulerProvider.getInstance().applySchedulers())
-
-            .subscribe({
-               view.setOpen(it.data.isStatus)
-
-            },{
-
-            }).also {  }
-
-    }
-
-
-    fun  iscurrentView(code: Int,head: String,view: MySwitch){
-        NetWorkManager.getRequest().isCurrentVideo( code, head)
+        NetWorkManager.getRequest().getplcState(code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
             .subscribe({
                 view.setOpen(it.data.isStatus)
 
-            },{
+            }, {
 
-            }).also {  }
+            }).also { }
+
     }
 
 
-    fun  reset(head: String){
-        NetWorkManager.getRequest().reset(  head)
+    fun iscurrentView(code: Int, head: String, view: MySwitch) {
+        NetWorkManager.getRequest().isCurrentVideo(code, head)
             .compose(SchedulerProvider.getInstance().applySchedulers())
 
             .subscribe({
-                Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
-                getCurrentVideo()
-            },{
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }).also {  }
+                view.setOpen(it.data.isStatus)
+
+            }, {
+
+            }).also { }
     }
 
-    fun  showProgressDialog(){
+
+    fun reset(head: String) {
+        NetWorkManager.getRequest().reset(head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .subscribe({
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                getCurrentVideo()
+            }, {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+    }
+
+    fun getControlChange(head: String) {
+        NetWorkManager.getRequest().getControlStatus(head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .compose(ResponseTransformer.handleResult())
+            .subscribe({
+                sw_home.setOpen(it.isStatus)
+            }, {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+    }
+
+
+    fun changeControlchange(head: String, c: Boolean) {
+
+        NetWorkManager.getRequest().changeControlStatus(head, c)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .subscribe({
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                sw_home.setOpen(c)
+            }, {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+
+    }
+
+    fun showProgressDialog() {
 
         dialog.show()
     }
 
-    fun  dissDialog(){
-        if (dialog.isShowing){
+    fun dissDialog() {
+        if (dialog.isShowing) {
             dialog.dismiss()
         }
 
     }
-
-
-
-
-
 
 
     private fun myRequetPermission() {
