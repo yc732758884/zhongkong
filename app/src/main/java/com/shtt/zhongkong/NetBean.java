@@ -23,6 +23,16 @@ public class NetBean {
     private  String gyws="http://192.168.1.10:9093/";
     private  String fgcl="http://192.168.1.11:9090/";
     private  String xhzl="http://192.168.1.8:9090/";
+    private   String  home="http://192.168.1.2:9090/";
+
+
+    public String getHome() {
+        return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
 
     public String getXhzl() {
         return xhzl;

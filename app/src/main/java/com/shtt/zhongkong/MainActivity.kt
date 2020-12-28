@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             nb.xhjj = json.xhjj
             nb.xhjjcyl = json.xhjjcyl
             nb.xhzl = json.xhzl
+            nb.home=json.home
 
 
         }
@@ -76,12 +77,12 @@ class MainActivity : AppCompatActivity() {
     fun initView() {
 
 
-        getControlChange("baseUrl")
+        getControlChange("home")
         sw_home.setColseText("锁定")
         sw_home.setOpenText("解锁")
         sw_home.setListener {
 
-            changeControlchange("baseUrl", it)
+            changeControlchange("home", it)
         }
 
 
@@ -204,6 +205,11 @@ class MainActivity : AppCompatActivity() {
 
         getCurrentVideo()
 
+        getXhzlProjectorShutterStatus("baseUrl")
+        sw_xhzl.setListener {
+            changeXhzlProjectorShutterStatus("baseUrl",it)
+        }
+
         sw_xc1.setListener {
             selectVideo(1, "xhzl")
 
@@ -217,9 +223,10 @@ class MainActivity : AppCompatActivity() {
             selectVideo(3, "xhzl")
 
         }
-        btn_xhzl.setOnClickListener {
-            shotdown("xhzl")
-        }
+//        btn_xhzl.setOnClickListener {
+//            shotdown("xhzl")
+//        }
+
         btn_stop.setOnClickListener {
             reset("xhzl")
         }
@@ -488,6 +495,36 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
+
+    fun getXhzlProjectorShutterStatus(head: String) {
+        NetWorkManager.getRequest().getXhzlProjectorShutterStatus(head)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .compose(ResponseTransformer.handleResult())
+            .subscribe({
+                sw_xhzl.setOpen(it.isStatus)
+            }, {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+    }
+
+
+    fun changeXhzlProjectorShutterStatus(head: String, c: Boolean) {
+
+        NetWorkManager.getRequest().changeXhzlProjectorShutterStatus(head, c)
+            .compose(SchedulerProvider.getInstance().applySchedulers())
+            .subscribe({
+                if (it.code==0){
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    sw_xhzl.setOpen(c)
+                }
+
+            }, {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }).also { }
+
+    }
     fun showProgressDialog() {
 
         dialog.show()

@@ -724,6 +724,7 @@
                    android:layout_weight="1"
                    android:layout_width="0dp"
                    android:gravity="center"
+                   android:orientation="vertical"
                    android:layout_height="match_parent">
 
                    <Button
@@ -734,16 +735,13 @@
                        android:layout_width="50dp"
                        android:layout_height="30dp"/>
 
-                   <Button
-                       android:visibility="gone"
-                       android:layout_marginStart="10dp"
-                       android:id="@+id/btn_xhzl"
-                       android:text="关机"
-                       android:textSize="8sp"
-                       android:background="@color/teal_700"
-                       android:layout_width="50dp"
+                   <com.shtt.zhongkong.MySwitch
+                       android:visibility="visible"
+                       android:layout_marginTop="20dp"
+                       android:id="@+id/sw_xhzl"
+                       android:layout_width="wrap_content"
                        android:layout_height="30dp"
-                       android:layout_marginLeft="10dp" />
+                        />
 
 
                </LinearLayout>
@@ -906,6 +904,10 @@
                        android:showText="true"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"/>
+
+
+
+
 
 
 

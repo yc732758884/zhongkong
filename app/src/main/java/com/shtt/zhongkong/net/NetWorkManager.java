@@ -134,6 +134,10 @@ public class NetWorkManager {
                         newBaseUrl = HttpUrl.parse(nb.getXhzl());
                         break;
 
+                    case "home":
+                        newBaseUrl = HttpUrl.parse(nb.getHome());
+                        break;
+
                     default:
 
                         newBaseUrl = oldHttpUrl;

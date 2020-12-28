@@ -79,7 +79,18 @@ public interface HttpRequest {
 
 
     //
-    @GET(" waveHandSwitch/getControlStatus")
+    @GET("waveHandSwitch/getControlStatus")
     Observable<BaseResponse<StatusBean>> getControlStatus( @Header("urlname") String head);
+
+
+    @GET("projector/changeXhzlProjectorShutterStatus")
+    Observable<BaseResponse<StatusBean>> changeXhzlProjectorShutterStatus( @Header("urlname") String head,@Query("isOpen") boolean control);
+
+
+
+    @GET("projector/getXhzlProjectorShutterStatus")
+    Observable<BaseResponse<StatusBean>> getXhzlProjectorShutterStatus( @Header("urlname") String head);
+
+
 
 }
